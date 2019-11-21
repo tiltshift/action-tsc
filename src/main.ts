@@ -186,7 +186,8 @@ async function run() {
 	];
 
 	if (rootDir) {
-		args.push(`--project ${rootDir}`);
+		args.push('--project');
+		args.push(rootDir);
 	}
 	try {
 		await exec('node', args, {
