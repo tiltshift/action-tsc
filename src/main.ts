@@ -179,7 +179,8 @@ async function run() {
 			'node',
 			[
 				`${join(process.cwd(), 'node_modules/typescript/bin/tsc')}`,
-				'-p client',
+				'--project',
+				'client',
 				'--noEmit',
 				'--noErrorTruncation',
 				'--pretty',
