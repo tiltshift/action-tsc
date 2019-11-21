@@ -145,7 +145,7 @@ async function check(data: string) {
 
 async function run() {
 	try {
-		await exec('node', [`${join(process.cwd(), 'node_modules/typescript/bin/tsc')}`, '--noEmit', '--noErrorTruncation', '--pretty', 'false'], {
+		await exec('cd client && node', [`${join(process.cwd(), 'node_modules/typescript/bin/tsc')}`, '--noEmit', '--noErrorTruncation', '--pretty', 'false'], {
 			listeners: {
 				stdout: async (data: Buffer) => {
 					await check(data.toString());
