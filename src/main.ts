@@ -174,26 +174,28 @@ async function check(data: string) {
 }
 
 async function run() {
+	const rootDir = getInput('root-dir');
+
+	const args = [
+		`${join(process.cwd(), 'node_modules/typescript/bin/tsc')}`,
+
+		'--noEmit',
+		'--noErrorTruncation',
+		'--pretty',
+		'false'
+	];
+
+	if (rootDir) {
+		args.push(`--project ${rootDir}`);
+	}
 	try {
-		await exec(
-			'node',
-			[
-				`${join(process.cwd(), 'node_modules/typescript/bin/tsc')}`,
-				'--project',
-				'client',
-				'--noEmit',
-				'--noErrorTruncation',
-				'--pretty',
-				'false'
-			],
-			{
-				listeners: {
-					stdout: async (data: Buffer) => {
-						await check(data.toString());
-					}
+		await exec('node', args, {
+			listeners: {
+				stdout: async (data: Buffer) => {
+					await check(data.toString());
 				}
 			}
-		);
+		});
 	} catch (error) {
 		setFailed(error.message);
 	}
