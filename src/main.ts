@@ -174,7 +174,7 @@ async function check(data: string) {
 }
 
 async function run() {
-	const rootDir = getInput('root-dir');
+	const project = getInput('project');
 
 	const args = [
 		`${join(process.cwd(), 'node_modules/typescript/bin/tsc')}`,
@@ -185,9 +185,9 @@ async function run() {
 		'false'
 	];
 
-	if (rootDir) {
+	if (project) {
 		args.push('--project');
-		args.push(rootDir);
+		args.push(project);
 	}
 	try {
 		await exec('node', args, {
